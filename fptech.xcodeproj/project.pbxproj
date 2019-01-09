@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55A0C86721E5FEAF0099715A /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A0C86621E5FEAF0099715A /* Util.swift */; };
 		55B1B76421E50C7C00AC6B03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B1B76321E50C7C00AC6B03 /* AppDelegate.swift */; };
 		55B1B76621E50C7C00AC6B03 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B1B76521E50C7C00AC6B03 /* HomeViewController.swift */; };
 		55B1B76921E50C7C00AC6B03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55B1B76721E50C7C00AC6B03 /* Main.storyboard */; };
@@ -19,9 +20,11 @@
 		55B1B78721E511DA00AC6B03 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B1B78521E511DA00AC6B03 /* NewsTableViewCell.swift */; };
 		55B1B78821E511DA00AC6B03 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55B1B78621E511DA00AC6B03 /* NewsTableViewCell.xib */; };
 		55B1B78B21E53B6500AC6B03 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B1B78A21E53B6500AC6B03 /* CoreDataManager.swift */; };
+		55B1B78D21E5DA9A00AC6B03 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B1B78C21E5DA9A00AC6B03 /* ImageCacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		55A0C86621E5FEAF0099715A /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		55B1B76021E50C7C00AC6B03 /* fptech.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fptech.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55B1B76321E50C7C00AC6B03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55B1B76521E50C7C00AC6B03 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +39,7 @@
 		55B1B78521E511DA00AC6B03 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		55B1B78621E511DA00AC6B03 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
 		55B1B78A21E53B6500AC6B03 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		55B1B78C21E5DA9A00AC6B03 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55A0C86521E5FE990099715A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				55A0C86621E5FEAF0099715A /* Util.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		55B1B75721E50C7C00AC6B03 = {
 			isa = PBXGroup;
 			children = (
@@ -68,11 +80,12 @@
 		55B1B76221E50C7C00AC6B03 /* fptech */ = {
 			isa = PBXGroup;
 			children = (
-				55B1B78921E53B3600AC6B03 /* Persistence */,
+				55B1B77821E50D1B00AC6B03 /* Models */,
 				55B1B78321E5119700AC6B03 /* Views */,
 				55B1B77C21E510FC00AC6B03 /* Controllers */,
+				55A0C86521E5FE990099715A /* Utilities */,
+				55B1B78921E53B3600AC6B03 /* Persistence */,
 				55B1B77B21E510D100AC6B03 /* AppDelegate */,
-				55B1B77821E50D1B00AC6B03 /* Model */,
 				55B1B76721E50C7C00AC6B03 /* Main.storyboard */,
 				55B1B76D21E50C7E00AC6B03 /* Assets.xcassets */,
 				55B1B76F21E50C7E00AC6B03 /* LaunchScreen.storyboard */,
@@ -81,12 +94,12 @@
 			path = fptech;
 			sourceTree = "<group>";
 		};
-		55B1B77821E50D1B00AC6B03 /* Model */ = {
+		55B1B77821E50D1B00AC6B03 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				55B1B77921E50D3000AC6B03 /* NewsModel.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		55B1B77B21E510D100AC6B03 /* AppDelegate */ = {
@@ -100,8 +113,8 @@
 		55B1B77C21E510FC00AC6B03 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				55B1B78221E5117000AC6B03 /* DetailsVC */,
 				55B1B78121E5116700AC6B03 /* HomeVC */,
+				55B1B78221E5117000AC6B03 /* DetailsVC */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -145,6 +158,7 @@
 			children = (
 				55B1B78A21E53B6500AC6B03 /* CoreDataManager.swift */,
 				55B1B76A21E50C7C00AC6B03 /* fptech.xcdatamodeld */,
+				55B1B78C21E5DA9A00AC6B03 /* ImageCacheManager.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -223,9 +237,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				55B1B77A21E50D3000AC6B03 /* NewsModel.swift in Sources */,
+				55A0C86721E5FEAF0099715A /* Util.swift in Sources */,
 				55B1B76621E50C7C00AC6B03 /* HomeViewController.swift in Sources */,
 				55B1B78721E511DA00AC6B03 /* NewsTableViewCell.swift in Sources */,
 				55B1B76C21E50C7C00AC6B03 /* fptech.xcdatamodeld in Sources */,
+				55B1B78D21E5DA9A00AC6B03 /* ImageCacheManager.swift in Sources */,
 				55B1B76421E50C7C00AC6B03 /* AppDelegate.swift in Sources */,
 				55B1B78B21E53B6500AC6B03 /* CoreDataManager.swift in Sources */,
 				55B1B77F21E5115E00AC6B03 /* DetailsViewController.swift in Sources */,

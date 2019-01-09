@@ -37,6 +37,14 @@ class CoreDataManager {
     }
     
     func saveNewsData(data:Data, pageNumber:Int) {
+        //chek if data for corresponding page is already there and updated
+        if let oldData = self.fetchNewsDataForPageNumber(pageNumber) {
+            if oldData == data{
+                return
+            }
+        }
+       
+        
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
