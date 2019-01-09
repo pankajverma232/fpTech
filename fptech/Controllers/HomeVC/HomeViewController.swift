@@ -17,13 +17,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     let  cellIdentifier = "NewsTableViewCell";
     
+    var pageUrl = "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=a8fabd9ff4234c82aad08eaaa4ea17a0&pageSize=5&page="
+    var newsUrlString:String?
     var page:Int = 1{
         willSet(nextPage) {
-            newsUrlString = "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=a8fabd9ff4234c82aad08eaaa4ea17a0&pageSize=5&page=\(nextPage)"
+            newsUrlString = "\(pageUrl)\(nextPage)"
         }
         
     }
-    var newsUrlString = "https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=a8fabd9ff4234c82aad08eaaa4ea17a0&pageSize=5&page=1"
+    
     var totalNews = 0;
     var newsData: [NewsModel] = []{
         didSet {
@@ -32,9 +34,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     var refreshControl = UIRefreshControl()
     lazy var coreDataManager:CoreDataManager = CoreDataManager()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        newsUrlString = "\(pageUrl)1" //first page
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: UIControl.Event.valueChanged)
         if #available(iOS 10.0, *) {
@@ -47,14 +50,23 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.delegate = self
         tableView.allowsSelection = false;
         
-
         loadNews()
     }
     
     
     @objc func refresh(sender:AnyObject) {
-        tableView.reloadData()
-        refreshControl.endRefreshing()
+        let dispatchGroup = DispatchGroup()
+        for  n in 1...page{
+            dispatchGroup.enter()
+            refreshPage(page: n, completion: {
+                dispatchGroup.leave()
+            })
+        }
+        dispatchGroup.notify(queue: .main){
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+        
     }
     
     
@@ -84,8 +96,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-   
+    
     func loadNews() -> Void {
+        guard let newsUrlString = newsUrlString else {return}
         guard let newsUrl = URL(string: newsUrlString) else { return }
         //fetch from core data, if found return
         if let data = coreDataManager.fetchNewsDataForPageNumber(page){
@@ -100,6 +113,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.coreDataManager.saveNewsData(data: data, pageNumber: self.page)
             }
             self.processData(data: data)
+            }.resume()
+    }
+    func refreshPage(page:Int,  completion:@escaping ()->())  {
+        let urlString = "\(pageUrl)\(page)"
+        guard let newsUrl = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: newsUrl) {[unowned self] (data, response
+            , error) in
+            //save in core data
+            DispatchQueue.main.async {[unowned self] in
+                guard let data = data else { return }
+                self.processData(data: data)
+                self.coreDataManager.saveNewsData(data: data, pageNumber: self.page)
+                completion()
+            }
             }.resume()
     }
     
